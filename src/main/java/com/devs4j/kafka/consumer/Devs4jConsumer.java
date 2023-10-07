@@ -26,13 +26,15 @@ public class Devs4jConsumer {
         props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         // Partition 4
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props)) {
-            TopicPartition topicPartition = new TopicPartition("devs4j-topic",4);
+           /* TopicPartition topicPartition = new TopicPartition("devs4j-topic",4);
             consumer.assign(Arrays.asList(topicPartition));
-            consumer.seek(topicPartition,50);
+            consumer.seek(topicPartition,50);*/
+            consumer.subscribe(Arrays.asList("devs4j-topic"));
             while (true) {
+                // Kafka message of 100 ms
                 ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
-                    log.info("Offset = {}, Partition = {} , Key = {} , Value = {} ",consumerRecord.offset(), consumerRecord.partition(), consumerRecord.key(), consumerRecord.value());
+                    log.info("Offset = {}, Partition  = {} , Key = {} , Value = {} ",consumerRecord.offset(), consumerRecord.partition(), consumerRecord.key(), consumerRecord.value());
                 }
 
             }

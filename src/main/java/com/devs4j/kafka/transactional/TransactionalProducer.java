@@ -19,7 +19,9 @@ public class TransactionalProducer {
         Properties props = new Properties();
         props.put("bootstrap.servers", "192.168.1.14:9092");
         props.put("acks", "all");
+//        add this new property
         props.put("transactional.id", "devs4j-producer-id");
+//        fin this new property
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("linger.ms", "10");
@@ -38,6 +40,7 @@ public class TransactionalProducer {
                 producer.flush();
             }catch (Exception e) {
                 log.error("Error", e);
+                producer.abortTransaction();
             }
         }
 
