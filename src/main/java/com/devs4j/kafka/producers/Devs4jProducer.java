@@ -24,7 +24,7 @@ public class Devs4jProducer {
 
         try (Producer<String, String> producer = new KafkaProducer<String, String>(props);) {
             for (int i = 0; i < 100; i++) {
-                producer.send(new ProducerRecord<>("devs4j-topic", i % 2 == 0 ? "devs4j-key2" : "devs4j-key3", String.valueOf(i)));
+                producer.send(new ProducerRecord<>("devs4j-topic", "devs4j-key", String.valueOf(i)));
             }
             producer.flush();
         } /*catch (ExecutionException | InterruptedException e) {

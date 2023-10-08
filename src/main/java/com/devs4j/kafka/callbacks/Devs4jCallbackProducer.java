@@ -19,7 +19,7 @@ public class Devs4jCallbackProducer {
         props.put("linger.ms", "10");
 
         try (Producer<String, String> producer = new KafkaProducer<String, String>(props);) {
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 100; i++) {
                 producer.send(new ProducerRecord<String, String>("devs4j-topic", String.valueOf(i), "devs4j-value"),
                         (recordMetadata, e) -> {
                             if (e != null) {
